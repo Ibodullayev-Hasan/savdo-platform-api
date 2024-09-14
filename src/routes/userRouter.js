@@ -1,7 +1,9 @@
-const { getUser } = require("../controllers/userController")
+const { readUsersData, createUser, updateUsersData } = require("../controllers/userController");
 
-const userRoute = require(`express`).Router()
+const userRoute = require(`express`).Router();
 
-userRoute.get("/", getUser)
+userRoute.get("/", readUsersData);
+userRoute.post("/user/create", createUser);
+userRoute.patch("/user/update/:id", updateUsersData);
 
-module.exports = userRoute
+module.exports = userRoute;

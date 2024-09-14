@@ -11,8 +11,8 @@ const fetch_data = async (query, ...params) => {
   let client = await pool.connect();
 
   try {
-      
-      let { rows } = await client.query(query, params.length ? params : null);
+    // Bu yerda params to'g'ridan-to'g'ri argument sifatida beriladi
+    let { rows } = await client.query(query, params);
     return rows;
   } catch (error) {
     console.error("Fetch_Data: ", error);
@@ -23,4 +23,3 @@ const fetch_data = async (query, ...params) => {
 
 // export
 module.exports = fetch_data;
-  
