@@ -3,12 +3,11 @@ const fetch_data = require("../config/postgresFetchData");
 // C
 const createUser = async (req, res) => {
   try {
-    let { fullName, email, password, userName, phoneNumber } = req.body;
+    let { fullname, email, password, username, phonenumber } = req.body;
 
-    // "userName" ustunini qo'shtirnoq bilan yozamiz
     let [existUser] = await fetch_data(
-      'SELECT * FROM users WHERE "userName" = $1',
-      userName
+      'SELECT * FROM users WHERE "username" = $1 OR "email" = $2',
+      username, email
     );
 
     if (existUser) {
@@ -19,12 +18,12 @@ const createUser = async (req, res) => {
     }
 
     await fetch_data(
-      'INSERT INTO users("fullName", email, password, "userName", "phoneNumber") VALUES($1, $2, $3, $4, $5)',
-      fullName,
+      'INSERT INTO users("fullname", email, password, "username", "phonenumber") VALUES($1, $2, $3, $4, $5)',
+      fullname,
       email,
       password,
-      userName,
-      phoneNumber
+      username,
+      phonenumber
     );
 
     let endUser = await fetch_data("SELECT * FROM users");
@@ -63,7 +62,7 @@ const readUsersData = async (req, res) => {
 // U
 const updateUsersData = async (req, res) => {
   try {
-    let { fullName, email, password, userName, phoneNumber } = req.body;
+    let { fullname, email, password, username, phonenumber } = req.body;
     let { id } = req.params;
 
     let [checkId] = await fetch_data("SELECT * FROM users WHERE id = $1", id);
@@ -76,12 +75,12 @@ const updateUsersData = async (req, res) => {
     }
 
     await fetch_data(
-      'UPDATE users SET "fullName" = $1, email = $2, password = $3, "userName" = $4, "phoneNumber" = $5 WHERE id = $6',
-      fullName,
+      'UPDATE users SET "fullname" = $1, email = $2, password = $3, "username" = $4, "phonenumber" = $5 WHERE id = $6',
+      fullname,
       email,
       password,
-      userName,
-      phoneNumber,
+      username,
+      phonenumber,
       id
     );
 
