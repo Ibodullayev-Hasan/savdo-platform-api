@@ -29,7 +29,7 @@ const createUser = async (req, res) => {
 
     let endUser = await fetch_data("SELECT * FROM users");
 
-    return res.status(200).send({
+    return res.status(201).send({
       success: true,
       message: "New user created successfully",
       data: endUser.at(-1),
