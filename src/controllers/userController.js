@@ -99,8 +99,38 @@ const updateUsersData = async (req, res) => {
   }
 };
 
+
+// D
+const deleteUsers = async(req, res) => {
+  try {
+    
+    let {id} = req.params
+
+    let [checkId] = await fetch_data("SELECT * FROM users WHERE id = $1", id)
+    if (!checkId) {
+      return res.status(404).send({
+        success: false,
+        message: `User not found`,
+      });
+    }
+
+    await fetch_data("DELETE FROM users WHERE id = $1", id)
+
+    return res.status(200).send({
+      success: true,
+      message: `Successfully deleted user`,
+    });
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: error.message,
+    });
+  }
+}
+
 module.exports = {
   readUsersData,
   createUser,
   updateUsersData,
+  deleteUsers
 };
