@@ -41,6 +41,30 @@ const createUser = async (req, res) => {
   }
 };
 
+
+// search
+const searchUser = async (req, res) => {
+  try {
+    let { name } = req.params;
+
+    // Corrected query: use ILIKE for case-insensitive search
+    let [userData] = await fetch_data("SELECT * FROM users WHERE fullname LIKE $1", `${name}%`);
+    
+    return res.status(200).send({
+      success: true,
+      message: "Users data",
+      data: userData,
+    });
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+
+
 // R
 const readUsersData = async (req, res) => {
   try {
@@ -132,5 +156,6 @@ module.exports = {
   readUsersData,
   createUser,
   updateUsersData,
-  deleteUsers
+  deleteUsers,
+  searchUser
 };
