@@ -86,7 +86,7 @@ const updateUsersData = async (req, res) => {
 
     let updatedUser = await fetch_data("SELECT * FROM users WHERE id = $1", id);
 
-    return res.status(200).send({
+    return res.status(204).send({
       success: true,
       message: "Updated user",
       data: updatedUser,
