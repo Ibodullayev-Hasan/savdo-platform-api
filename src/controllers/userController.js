@@ -7,7 +7,8 @@ const createUser = async (req, res) => {
 
     let [existUser] = await fetch_data(
       'SELECT * FROM users WHERE "username" = $1 OR "email" = $2',
-      username, email
+      username,
+      email
     );
 
     if (existUser) {
@@ -47,8 +48,11 @@ const searchUser = async (req, res) => {
   try {
     let { name } = req.params;
 
-    let userData = await fetch_data("SELECT * FROM users WHERE fullname ILIKE $1", `%${name}%`);
-    
+    let userData = await fetch_data(
+      "SELECT * FROM users WHERE fullname ILIKE $1",
+      `%${name}%`
+    );
+
     return res.status(200).send({
       success: true,
       message: "Users data",
@@ -61,8 +65,6 @@ const searchUser = async (req, res) => {
     });
   }
 };
-
-
 
 // R
 const readUsersData = async (req, res) => {
@@ -122,14 +124,12 @@ const updateUsersData = async (req, res) => {
   }
 };
 
-
 // D
-const deleteUsers = async(req, res) => {
+const deleteUsers = async (req, res) => {
   try {
-    
-    let {id} = req.params
+    let { id } = req.params;
 
-    let [checkId] = await fetch_data("SELECT * FROM users WHERE id = $1", id)
+    let [checkId] = await fetch_data("SELECT * FROM users WHERE id = $1", id);
     if (!checkId) {
       return res.status(404).send({
         success: false,
@@ -137,7 +137,7 @@ const deleteUsers = async(req, res) => {
       });
     }
 
-    await fetch_data("DELETE FROM users WHERE id = $1", id)
+    await fetch_data("DELETE FROM users WHERE id = $1", id);
 
     return res.status(200).send({
       success: true,
@@ -149,12 +149,12 @@ const deleteUsers = async(req, res) => {
       message: error.message,
     });
   }
-}
+};
 
 module.exports = {
   readUsersData,
   createUser,
   updateUsersData,
   deleteUsers,
-  searchUser
+  searchUser,
 };

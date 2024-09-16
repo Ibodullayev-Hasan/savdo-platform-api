@@ -13,3 +13,10 @@ create table users(
     userName text,
     phoneNumber text
 );
+
+
+create table users_img(
+    id serial primary key,
+    userid int references users(id),
+    imglink text
+);
