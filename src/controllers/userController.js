@@ -48,7 +48,7 @@ const searchUser = async (req, res) => {
     let { name } = req.params;
 
     // Corrected query: use ILIKE for case-insensitive search
-    let [userData] = await fetch_data("SELECT * FROM users WHERE fullname LIKE $1", `${name}%`);
+    let [userData] = await fetch_data("SELECT * FROM users WHERE fullname ILIKE $1", `${name}%`);
     
     return res.status(200).send({
       success: true,
