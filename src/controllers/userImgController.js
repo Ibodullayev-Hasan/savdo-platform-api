@@ -3,7 +3,9 @@ const fetch_data = require("../config/postgresFetchData");
 // image upload
 const imgUpload = async (req, res) => {
   try {
-    let { userid, imglink } = req.body;
+    let { userid } = req.body;
+    let imglink = req.file.filename;
+    // console.log(req.body);
 
     let [checkId] = await fetch_data(
       "SELECT * FROM users WHERE id = $1",
@@ -35,7 +37,10 @@ const imgUpload = async (req, res) => {
       imglink
     );
 
-    let endUserImg = await fetch_data("SELECT * FROM users_img");
+    let endUserImg = await fetch_data(
+      "SELECT * FROM users_img WHERE userid = $1",
+      userid
+    );
 
     return res.status(201).send({
       success: true,
@@ -70,5 +75,5 @@ const getImgData = async (req, res) => {
 
 module.exports = {
   imgUpload,
-  getImgData
+  getImgData,
 };
