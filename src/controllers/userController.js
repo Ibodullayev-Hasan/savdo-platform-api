@@ -1,4 +1,5 @@
 const fetch_data = require("../config/postgresFetchData");
+const { sign_mtd } = require("../utils/jwt");
 
 // C
 const createUser = async (req, res) => {
@@ -27,12 +28,20 @@ const createUser = async (req, res) => {
       phonenumber
     );
 
+    let [findUser] = await fetch_data(
+      'SELECT * FROM users WHERE "username" = $1 AND "email" = $2',
+      username,
+      email
+    );
+    let token = sign_mtd({ id: findUser.id });
+
     let endUser = await fetch_data("SELECT * FROM users");
 
     return res.status(201).send({
       success: true,
       message: "New user created successfully",
       data: endUser.at(-1),
+      token: token,
     });
   } catch (error) {
     return res.status(500).send({
@@ -41,7 +50,6 @@ const createUser = async (req, res) => {
     });
   }
 };
-
 
 // search
 const searchUser = async (req, res) => {
@@ -84,11 +92,9 @@ const readUsersData = async (req, res) => {
   }
 };
 
-
 // loginPage get
 const getFrontendLoginPage = async (req, res) => {
   try {
-
     return res.status(200).send({
       success: true,
       message: "Successfully",
@@ -100,7 +106,6 @@ const getFrontendLoginPage = async (req, res) => {
     });
   }
 };
-
 
 // U
 const updateUsersData = async (req, res) => {
@@ -175,5 +180,5 @@ module.exports = {
   updateUsersData,
   deleteUsers,
   searchUser,
-  getFrontendLoginPage
+  getFrontendLoginPage,
 };
