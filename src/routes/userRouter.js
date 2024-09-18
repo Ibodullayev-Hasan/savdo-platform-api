@@ -8,7 +8,7 @@ const {
   getFrontendLoginPage,
 } = require("../controllers/userController");
 
-const { imgUpload, getImgData } = require("../controllers/userImgController");
+const {  getImgData, uploadImg } = require("../controllers/userImgController");
 const uploadMiddlewareFn = require("../middlewares/uploadMiddleware");
 
 // users
@@ -22,7 +22,7 @@ userRoute.delete("/user/delete/:id", deleteUsers);
 userRoute.patch("/user/update/:id", updateUsersData);
 
 // users img
-userRoute.post("/user/img/upload", uploadMiddlewareFn("image"), imgUpload);
+userRoute.post("/user/img/upload", uploadMiddlewareFn("image"), uploadImg);
 userRoute.get("/user/img", getImgData);
 
 module.exports = userRoute;
