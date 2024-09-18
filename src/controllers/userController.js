@@ -84,6 +84,24 @@ const readUsersData = async (req, res) => {
   }
 };
 
+
+// loginPage get
+const getFrontendLoginPage = async (req, res) => {
+  try {
+
+    return res.status(200).send({
+      success: true,
+      message: "Successfully",
+    });
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+
 // U
 const updateUsersData = async (req, res) => {
   try {
@@ -157,4 +175,5 @@ module.exports = {
   updateUsersData,
   deleteUsers,
   searchUser,
+  getFrontendLoginPage
 };

@@ -5,19 +5,21 @@ const {
   updateUsersData,
   deleteUsers,
   searchUser,
+  getFrontendLoginPage,
 } = require("../controllers/userController");
 
 const { imgUpload, getImgData } = require("../controllers/userImgController");
 const uploadMiddlewareFn = require("../middlewares/uploadMiddleware");
 
-const userRoute = require(`express`).Router();
 // users
+const userRoute = require(`express`).Router();
 userRoute.get("/", readUsersData);
+userRoute.get("/login-page-loaded", getFrontendLoginPage);
 userRoute.get("/search/name/:name", searchUser);
 userRoute.post("/user/create", createUser);
 userRoute.post("/user/login", loginUser);
-userRoute.patch("/user/update/:id", updateUsersData);
 userRoute.delete("/user/delete/:id", deleteUsers);
+userRoute.patch("/user/update/:id", updateUsersData);
 
 // users img
 userRoute.post("/user/img/upload", uploadMiddlewareFn("image"), imgUpload);
