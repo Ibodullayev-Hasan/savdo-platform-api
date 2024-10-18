@@ -4,7 +4,7 @@ const secret = process.env.SECRET_KEY;
 
 const sign_mtd = (payload) => {
   try {
-    return jwt.sign(payload, secret);
+    return jwt.sign(payload, secret, {expiresIn: '1d'});
   } catch (error) {
     throw new Error();
   }

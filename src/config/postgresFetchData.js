@@ -9,11 +9,8 @@ let pool = new Pool({
 // fetch_data logic
 const fetch_data = async (query, ...params) => {
   let client = await pool.connect();
-// console.log('query' + query);
-// console.log('params'+ params);
 
   try {
-    // Bu yerda params to'g'ridan-to'g'ri argument sifatida beriladi
     let { rows } = await client.query(query, params);
     return rows;
   } catch (error) {
