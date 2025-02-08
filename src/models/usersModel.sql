@@ -1,6 +1,9 @@
 create table products(
     id serial primary key,
     productName varchar(150),
+    productImg text,
+    productMade varchar(200),
+    availableForSale int
     productPrice int,
     productDesc text
 );

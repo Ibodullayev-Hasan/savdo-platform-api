@@ -5,16 +5,14 @@ const {
   updateUsersData,
   deleteUsers,
   searchUser,
-  getFrontendLoginPage,
 } = require("../controllers/userController");
 
-const {  getImgData, uploadImg } = require("../controllers/userImgController");
+const { getImgData, uploadImg } = require("../controllers/userImgController");
 const uploadMiddlewareFn = require("../middlewares/uploadMiddleware");
 
 // users
 const userRoute = require(`express`).Router();
 userRoute.get("/", readUsersData);
-userRoute.get("/login-page-loaded", getFrontendLoginPage);
 userRoute.get("/search/name/:name", searchUser);
 userRoute.post("/user/create", createUser);
 userRoute.post("/user/login", loginUser);
