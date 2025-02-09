@@ -3,7 +3,7 @@ create table products(
     productName varchar(150),
     productImg text,
     productMade varchar(200),
-    availableForSale int
+    availableForSale int,
     productPrice int,
     productDesc text
 );
@@ -14,7 +14,8 @@ create table users(
     email text,
     password text,
     userName text,
-    phoneNumber text
+    phoneNumber text,
+    img_url text
 );
 
 

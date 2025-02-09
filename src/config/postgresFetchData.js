@@ -4,9 +4,9 @@ const url = process.env.URL;
 
 const pool = new Pool({
   connectionString: url,
-  max: 10, // Maksimal bir vaqtda ochiq turadigan ulanishlar
-  idleTimeoutMillis: 30000, // 30 sekunddan so‘ng bo‘sh ulanishlar yopiladi
-  connectionTimeoutMillis: 2000, // 2 soniya ichida ulana olmasa, xato qaytaradi
+  max: 10,
+  idleTimeoutMillis: 30000, 
+  connectionTimeoutMillis: 5000, 
 });
 
 // fetch_data logic
@@ -17,8 +17,7 @@ const fetch_data = async (query, ...params) => {
     let { rows } = await client.query(query, params);
     return rows;
   } catch (error) {
-    console.error("Fetch_Data Error: ", error);
-    throw new Error("Database query failed"); // Xatoni tashlash
+    throw new Error("Database query failed"); 
   } finally {
     if (client) client.release();
   }

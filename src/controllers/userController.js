@@ -4,7 +4,7 @@ const { sign_mtd } = require("../utils/jwt");
 // C
 const createUser = async (req, res) => {
   try {
-    let { fullname, email, password, username, phonenumber } = req.body;
+    let { fullname, email, password, username, phonenumber, img_url } = req.body;
 
     let [existUser] = await fetch_data(
       'SELECT * FROM users WHERE "username" = $1 OR "email" = $2',
@@ -17,15 +17,16 @@ const createUser = async (req, res) => {
         success: false,
         message: "User already exists",
       });
-    }
+    };
 
     await fetch_data(
-      'INSERT INTO users("fullname", email, password, "username", "phonenumber") VALUES($1, $2, $3, $4, $5)',
+      'INSERT INTO users("fullname", email, password, "username", "phonenumber", "img_url") VALUES($1, $2, $3, $4, $5, $6)',
       fullname,
       email,
       password,
       username,
-      phonenumber
+      phonenumber,
+      img_url
     );
 
     let [findUser] = await fetch_data(
