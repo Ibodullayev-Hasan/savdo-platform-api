@@ -20,7 +20,7 @@ const createUser = async (req, res) => {
     };
 
     await fetch_data(
-      'INSERT INTO users("fullname", email, password, "username", "phonenumber", "img_url") VALUES($1, $2, $3, $4, $5, $6)',
+      'INSERT INTO users("fullname", email, password, "username", "phonenumber", img_url) VALUES($1, $2, $3, $4, $5, $6)',
       fullname,
       email,
       password,
@@ -29,6 +29,8 @@ const createUser = async (req, res) => {
       img_url
     );
 
+    console.log();
+    
     let [findUser] = await fetch_data(
       'SELECT * FROM users WHERE "username" = $1 AND "email" = $2',
       username,
