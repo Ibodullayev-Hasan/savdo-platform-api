@@ -3,19 +3,4 @@ node_modules/
 
 # Environment variables
 .env
-
-# Vercel configuration
-.vercel/
-
-
-# Logs
-*.log
-
-# OS-specific files
-.DS_Store
-Thumbs.db
-
-# IDE configurations
-.vscode/
-
 .vercel
