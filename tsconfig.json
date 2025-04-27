@@ -1,0 +1,38 @@
+{
+	"compilerOptions": {
+	  "target": "ES2020",
+	  "module": "commonjs",
+	  "skipLibCheck": true,
+	  "esModuleInterop": true,
+	  "strict": true,
+	  "rootDir": "./src",
+	  "outDir": "./dist",
+	  "baseUrl": "/",
+	  "typeRoots": [
+		"src/types",
+		"./node_modules/@types" 
+	  ],
+	  "types": [
+		"node"
+	  ],
+	  "sourceMap": true,
+	  "incremental": true,
+	  "strictNullChecks": false,
+	  "noImplicitAny": false,
+	  "strictBindCallApply": false,
+	  "forceConsistentCasingInFileNames": true,
+	  "noFallthroughCasesInSwitch": false,
+	  "emitDecoratorMetadata": true,
+	  "experimentalDecorators": true
+	},
+	"include": [
+	  "src/**/*"
+	],
+	"files": [
+	  "src/types/express.types.d.ts"
+	],
+	"exclude": [
+	  "dist",
+	  "node_modules"
+	]
+  }
