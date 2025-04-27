@@ -7,7 +7,8 @@ const expressApp = async (app: Application) => {
 
 	app.use(cors({
 		credentials:true,
-		origin:["http://127.0.0.1:5500"],
+		// origin:["http://127.0.0.1:5500"],
+		origin:true,
 		// allowedHeaders:["Contn"]
 	}))
 	connectDB()
