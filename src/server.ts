@@ -3,6 +3,8 @@ import "dotenv/config"
 import expressApp from "./app";
 import { routeErrorHandler } from "./middlewares";
 import { AppError } from "./errors/error-handler";
+import path from "path";
+
 
 const server = async () => {
 	try {
@@ -11,6 +13,7 @@ const server = async () => {
 
 		app.use(express.json())
 		app.use(express.urlencoded({ extended: true }));
+		app.use(express.static(path.join(process.cwd(), 'uploads')));
 
 		expressApp(app)
 
