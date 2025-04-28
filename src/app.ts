@@ -10,7 +10,7 @@ const expressApp = async (app: Application) => {
 			credentials: true,
 			// origin:["http://127.0.0.1:5500"],
 			origin: true,
-			allowedHeaders: ["application/json"],
+			// allowedHeaders: ["application/json"],
 			methods: ["PATCH", "GET", "POST", "OPTIONS", "DELETE"]
 		}))
 
