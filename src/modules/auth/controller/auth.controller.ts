@@ -3,7 +3,7 @@ import { AppError } from "../../../errors/error-handler";
 import { IUser } from "../../../interfaces";
 import UserModel from "../../user/schemas/user.schema";
 import * as bcryptjs from "bcryptjs"
-import { sendResponse } from "../../../helpers";
+import { sendResponse, TokenHandler } from "../../../helpers";
 
 export class AuthController {
 	constructor() { }
@@ -23,17 +23,22 @@ export class AuthController {
 
 			if (existingUser) return next(new AppError("Email or phone number already exists", 409));
 
-			const newUser = await UserModel.create({
+			const newUser = new UserModel({
 				full_name,
 				email,
 				phone_number,
 				password: hashedPassword,
 			})
 
-			const user = (await newUser.save()).toObject()
-			delete user.password
+			const [user, tokens] = await Promise.all([
+				newUser.save({ validateBeforeSave: false }),
+				TokenHandler.tokenGenerator(newUser)
+			]);
 
-			sendResponse(res, 201, `User registered successfully`, { user })
+			const userObj = user.toObject();
+			delete userObj.password;
+
+			sendResponse(res, 201, "User registered successfully", { user: userObj, access_token: tokens.access_token });
 		} catch (error: any) {
 			next(new AppError(error.message, 400))
 		}
