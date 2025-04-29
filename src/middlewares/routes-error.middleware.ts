@@ -4,8 +4,6 @@ export const allowedRoutes: { [path: string]: string[] } = {
 	"/auth/sign-up": ["POST"],
 	"/auth/sign-in": ["POST"],
 	"/auth/refresh": ["POST"],
-	"/auth/logout": ["POST"],
-	// "/avatar/upload": ["POST"],
 	"/user/profile": ["GET"],
 };
 
