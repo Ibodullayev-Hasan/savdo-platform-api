@@ -13,7 +13,7 @@ export class TokenHandler {
 			throw new AppError("Missing environment variables", 500);
 		}
 
-		const payload = { sub: user.id, email: user.email };
+		const payload = { sub: user._id, email: user.email };
 
 		const [access_token, refresh_token] = await Promise.all([
 			jwt.sign(payload, secretKey, { expiresIn: accTime, algorithm: "HS512" }),
