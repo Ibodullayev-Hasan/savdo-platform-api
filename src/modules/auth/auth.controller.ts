@@ -70,8 +70,22 @@ export class AuthController {
 				});
 
 		} catch (error: any) {
-			console.log(error);
+			next(new AppError(error.message, 400))
+		}
+	}
 
+	// refresh
+	static async refresh(req: Request, res: Response, next: NextFunction): Promise<void> {
+		try {
+
+			const user: IUser = req?.user
+
+			const tokens = await TokenHandler.tokenGenerator(user)
+
+			// response
+			sendResponse(res, 200, "Token successfully refresh", { access_token: tokens.access_token });
+
+		} catch (error: any) {
 			next(new AppError(error.message, 400))
 		}
 	}
